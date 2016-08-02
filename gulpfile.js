@@ -31,17 +31,17 @@ gulp.task('browser-sync', function() {
 });*/
 
 gulp.task('jsmin', function () {
-    gulp.src(['js/content.js'])
+    gulp.src(['js/*.js'])
         .pipe(uglify({
             mangle: false,//类型：Boolean 默认：true 是否修改变量名
             compress: true,//类型：Boolean 默认：true 是否完全压缩
             preserveComments: 'none' //保留所有注释
         }))
-        .pipe(gulp.dest('bundle/js'));
+        .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('autoFx', function () {
-    gulp.src('css/content.css')
+    gulp.src('css/*.css')
         .pipe(autoprefixer({
             browsers: [ "chrome 30", "Firefox < 20","ios_saf 8", "safari 8",'Android >= 2.3'],
             cascade: true, //是否美化属性值 默认：true 像这样：
@@ -49,13 +49,13 @@ gulp.task('autoFx', function () {
             //        transform: rotate(45deg);
             remove:true //是否去掉不必要的前缀 默认：true
         }))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest('dist/css'));
 });
 // [ "chrome 30", "Firefox < 20","ios_saf 8", "safari 8",'Android >= 2.3','ie 6-8','Opera <= 20']
 // [ "chrome 30", "Firefox < 20","ios_saf 8", "safari 8",'Android >= 2.3']
 
 gulp.task('cssmin', function() {
-  return gulp.src('css/content.css')
+  return gulp.src('css/*.css')
   .pipe(autoprefixer({
 	  browsers: [ "chrome 30", "Firefox < 20","ios_saf 8", "safari 8",'Android >= 2.3'],
 	  cascade: true, //是否美化属性值 默认：true 像这样：
@@ -65,7 +65,7 @@ gulp.task('cssmin', function() {
   }))
   .pipe(gulp.dest('css'))
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('bundle/css'));
+    .pipe(gulp.dest('dist/css'));
 });
 
 /*gulp.task('testImagemin', function () {
@@ -101,7 +101,7 @@ gulp.task('rev',function() {
         .pipe(revCollector())                                   //- 执行文件内css名的替换
         .pipe(gulp.dest('./build/'));                     //- 替换后的文件输出的目录
 });
-gulp.watch('css/centent.css',['rev']);
+// gulp.watch('css/centent.css',['rev']);
 
 /*gulp.task('build', function(callback) {
   runSequence(
@@ -125,5 +125,5 @@ gulp.watch('css/centent.css',['rev']);
 // });
 
 
-gulp.task('default',['autoFx','cssmin']);
+gulp.task('default',['jsmin','cssmin']);
 　　
